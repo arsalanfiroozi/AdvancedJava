@@ -1,6 +1,6 @@
 public class App {
     public static void main(String[] args) throws Exception {
-        Course c = new Course("AdvancedJAVA", "Prof. Matin Hashemi", "EE", "1", "25537");
+        Course c = new Course("AdvancedJAVA", "Prof. Matin Hashemi", "EE", 1, "25537");
         Student s = new Student("Arsalan", "Firoozi", "97102225", "0521183456", "EE");
         System.out.println("Course Spec:");
         c.PrintSpec(c);
@@ -11,9 +11,10 @@ public class App {
         System.out.println("========================");
         System.out.println("Registered Students:");
         c.PrintStudents(c);
-        s.AddRemCourse(s, c, "add");
+        s.AddRemCourse(s, c, "add", 19.0);
+        s.AddRemCourse(s, c, "add", 19.5);
         System.out.println("\n========================");
         System.out.println("GDP:");
-        s.GDP(s);
+        System.out.println(s.GDP(s));
     }
 }

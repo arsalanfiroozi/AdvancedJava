@@ -4,11 +4,11 @@ public class Course {
     String Name = "Unkown";
     String Prof = "Unknowny";
     String Department = "0";
-    String Units = "0";
+    Integer Units = 0;
     String ID = "0";
     ArrayList<Student> Students = new ArrayList<Student>();
     
-    public Course(String Name_val,String Prof_val,String Department_val,String Units_val,String ID_val){
+    public Course(String Name_val,String Prof_val,String Department_val,Integer Units_val,String ID_val){
         Name = Name_val;
         Prof = Prof_val;
         Department = Department_val;
