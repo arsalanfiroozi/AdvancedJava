@@ -1,11 +1,35 @@
+import java.util.ArrayList;
+
 public class Student {
     String Name = "Unkown";
     String Familyname = "Unknowny";
     String National_ID = "0";
     String Student_ID = "0";
     String Field = "EE";
+    ArrayList<Course> Courses = new ArrayList<Course>();
     
-    public static void main(String[] args) throws Exception {
-        System.out.println("Hello, World!");
+    public Student(String Name_val, String Familyname_val, String StudentID_val, String NationalID_val, String Field_val){
+        Name = Name_val;
+        Familyname = Familyname_val;
+        Student_ID = StudentID_val;
+        National_ID = NationalID_val;
+        Field = Field_val;
+        System.out.println("Student Created!");
+    }
+    public static void PrintSpec(Student obj) throws Exception {
+        System.out.println("Name: "+obj.Name);
+        System.out.println("Familyname: "+obj.Familyname);
+        System.out.println("Student_ID: "+obj.Student_ID);
+        System.out.println("National_ID: "+obj.National_ID);
+        System.out.println("Field: "+obj.Field);
+    }
+    public static void AddRemCourse(Student s, Course obj_c, String Stat) throws Exception {        
+        if(Stat == "add")
+            s.Courses.add(obj_c);
+        else
+            s.Courses.remove(obj_c);
+    }
+    public static void GDP(Student s) throws Exception {        
+        System.out.println("0");
     }
 }
