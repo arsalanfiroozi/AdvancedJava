@@ -27,7 +27,7 @@ public class Student {
         for(int i=0; i<obj.Courses.size();i++){
             System.out.println("\t\t"+Courses.get(i).Name+": "+String.format("%.2f",Grades.get(i)));
         }
-        System.out.println("\tGDP: "+ String.format("%.2f",GDP(this))+"\n");
+        System.out.println("\tGDP: "+ String.format("%.2f",GPA(this))+"\n");
     }
     public void AddRemCourse(Student s, Course obj_c, String Stat, Double grade) throws Exception {        
         if(Stat == "add"){
@@ -38,7 +38,7 @@ public class Student {
             s.Courses.remove(obj_c);
         }
     }
-    public Double GDP(Student s) throws Exception {
+    public Double GPA(Student s) throws Exception {
         Double gdp=0.0;
         Integer sunit=0;
         for (int i = 0; i < s.Courses.size(); i++){

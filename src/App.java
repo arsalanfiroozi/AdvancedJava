@@ -17,8 +17,8 @@ public class App {
         s.AddRemCourse(s, c, "add", 19.0);
         s.AddRemCourse(s, c, "add", 19.5);
         System.out.println("\n========================");
-        System.out.println("GDP:");
-        System.out.println(s.GDP(s));
+        System.out.println("GPA:");
+        System.out.println(s.GPA(s));
 */   
         Scanner in = new Scanner(System.in);
 
@@ -224,10 +224,10 @@ public class App {
                                 }
                                 break;
 
-                            //GDP
+                            //GPA
                             case "3": 
                                 System.out.println("Your GPA is   "
-                                  +String.format("%.2f",students.get(studentIndex).GDP(students.get(studentIndex)))+"\n");
+                                  +String.format("%.2f",students.get(studentIndex).GPA(students.get(studentIndex)))+"\n");
                                 break;
 
                             //courses list
