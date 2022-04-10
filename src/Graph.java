@@ -6,9 +6,50 @@ public class Graph {
 
     public Graph() {
     }
-    public Graph(ArrayList<Edge> edges) {
+    public Graph(ArrayList<Edge> edges) throws Exception {
         this.edges = edges;
-        //???
+        boolean tmp;
+        for(Edge edge : edges) {
+            if (edge.isDirected) {
+                tmp = false;
+                for(Node n : nodes) {
+                    if(n==edge.getSource())
+                        tmp = true;
+                }
+                if(!tmp)
+                    nodes.add(edge.getSource());
+                    
+                tmp = false;
+                for(Node n : nodes) {
+                    if(n==edge.getDestination())
+                        tmp = true;
+                }
+                if(!tmp)
+                    nodes.add(edge.getDestination());
+
+                edge.getSource().addEdge(edge);
+                edge.getDestination().addEdge(edge);
+            } else {
+                tmp = false;
+                for(Node n : nodes) {
+                    if(n==edge.getNodes().get(0))
+                        tmp = true;
+                }
+                if(!tmp)
+                    nodes.add(edge.getNodes().get(0));
+                    
+                tmp = false;
+                for(Node n : nodes) {
+                    if(n==edge.getNodes().get(1))
+                        tmp = true;
+                }
+                if(!tmp)
+                    nodes.add(edge.getNodes().get(1));
+
+                edge.getNodes().get(0).addEdge(edge);
+                edge.getNodes().get(1).addEdge(edge);
+            }
+        }
     }
 
 
