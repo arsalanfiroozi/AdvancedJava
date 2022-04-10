@@ -2,7 +2,6 @@ import java.util.*;
 
 public class UndirectedEdge extends Edge {
     ArrayList<Node> nodes  = new ArrayList<Node>();
-
     
     public UndirectedEdge() throws Exception {
         nodes.add(new Node());
