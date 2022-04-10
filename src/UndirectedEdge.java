@@ -12,7 +12,9 @@ public class UndirectedEdge extends Edge {
     public UndirectedEdge(Node nodeA, Node nodeB/* , int edgeID */) throws Exception {
         nodes.add(nodeA);
         nodes.add(nodeB);
-        //this.edgeID = edgeID;     
+        //this.edgeID = edgeID;
+		nodeA.edges.add(this);
+		nodeB.edges.add(this);
         isDirected = false;
     }
 

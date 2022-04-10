@@ -1,4 +1,4 @@
-//import java.util.*;
+import java.util.*;
 
 public class DirectedEdge extends Edge {
     Node source      = new Node();
@@ -12,6 +12,8 @@ public class DirectedEdge extends Edge {
         this.source      = source;
         this.destination = destination;
         //this.edgeID    = edgeID;
+		source.edges.add(this);
+		destination.edges.add(this);
         isDirected       = true;
     }
     
