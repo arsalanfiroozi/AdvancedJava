@@ -33,9 +33,11 @@ public class App {
 		System.out.println(G.getAncestors(n3).get(0).nodeID + " " + G.getAncestors(n3).get(1).nodeID + "\n");
 		
 		ArrayList<Edge> path = G.getPath(n1,n3);
-		for (int i = path.size()-1; i >= 0; i--) {
-			System.out.println(path.get(i).getSource().nodeID + " " + path.get(i).getDestination().nodeID);
-		}
+        if(path!=null)
+            for (int i = path.size()-1; i >= 0; i--) {
+                System.out.println(path.get(i).getSource().nodeID + " " + path.get(i).getDestination().nodeID);
+            }
+
 		
 		
         /*ArrayList<Edge> ed = n1.getEdges();
