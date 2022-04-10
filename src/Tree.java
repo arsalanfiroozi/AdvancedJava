@@ -60,6 +60,25 @@ public class Tree extends DirectedGraph {
 		return anc;
 	}
 	
+	public ArrayList<Edge> getPath(Node n1, Node n2) {
+		ArrayList<Edge> path = new ArrayList<>();
+		Node now = n2;
+		while (now != n1 && now.nodeID != getFather(now).nodeID) {
+			for (int i = 0; i < now.edges.size(); i++) {
+				if (now.edges.get(i).getDestination() == now) {
+					path.add(now.edges.get(i));
+				}
+			}
+			now = getFather(now);
+		}
+		if (now == n1) {
+			return path;
+		}
+		else {
+			return null;
+		}
+	}
+	
 }
 
 
