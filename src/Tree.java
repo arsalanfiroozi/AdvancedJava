@@ -1,0 +1,95 @@
+import java.util.*;
+
+public class Tree extends DirectedGraph {
+	
+	public Tree() {
+    }
+	
+	public void addEdge(DirectedEdge e1) throws Exception {
+		if (e1.getDestination().getInDegree() == 0 && e1.getDestination() != e1.getSource()) {
+			e1.getSource().addEdge(e1);
+			e1.getDestination().addEdge(e1);
+			edges.add(e1);
+		}
+        else {
+			System.out.println("Invalid edge for Tree class");
+		}
+    }
+	
+	public void addNode(Node n1) throws Exception {
+		boolean ex = false;
+		if (n1.getInDegree() <= 1) {
+			for (int i = 0; i < n1.edges.size(); i++) {
+				if (n1.edges.get(i).isDirected) {
+					ex = false;
+					for (Edge e : edges) {
+						if (e == n1.edges.get(i)) {
+							ex = true;
+						}
+					}
+					if(!ex)
+						addEdge(n1.edges.get(i));
+				}
+			}
+			nodes.add(n1);
+		}
+		else {
+			System.out.println("Invalid Node for Tree class");
+		}
+	}
+	
+	public Node getFather(Node child) {
+		Node par = child;
+		for (int i = 0; i < child.edges.size(); i++) {
+			if (child.edges.get(i).getDestination() == child) {
+				par = child.edges.get(i).getSource();
+			}
+		}
+		return par;
+	}
+	
+	public ArrayList<Node> getChildren(Node par) {
+		ArrayList<Node> children = new ArrayList<>();
+		for (int i = 0; i < par.edges.size(); i++) {
+			if (par.edges.get(i).getSource() == par) {
+				children.add(par.edges.get(i).getDestination());
+			}
+		}
+		return children;
+	}
+	
+	public ArrayList<Node> getAncestors(Node n) {
+		ArrayList<Node> anc = new ArrayList<>();
+		Node now = n;
+		while (now.nodeID != getFather(now).nodeID) {
+			now = getFather(now);
+			anc.add(now);
+		}
+		return anc;
+	}
+	
+	public ArrayList<Edge> getPath(Node n1, Node n2) {
+		ArrayList<Edge> path = new ArrayList<>();
+		Node now = n2;
+		while (now != n1 && now != getFather(now)) {
+			System.out.println(now);
+			for (int i = 0; i < now.edges.size(); i++) {
+				if (now.edges.get(i).getDestination() == now) {
+					path.add(now.edges.get(i));
+				}
+			}
+			now = getFather(now);
+		}
+		if (now == n1) {
+			return path;
+		}
+		else {
+			return null;
+		}
+	}
+	
+}
+
+
+
+
