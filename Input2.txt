@@ -1,0 +1,12 @@
+A B1
+A B2
+A B3
+A B4
+B2 C1
+B2 C2
+B4 C3
+C3 D1
+C3 D2 A
+C3 D3
+Find
+A D2
