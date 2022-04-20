@@ -100,6 +100,67 @@ public class Graph {
         return edges;
     }
 
-    
+    public ArrayList<Node> DFS(Node st,Node ed) throws Exception {
+		Stack<Node> stk = new Stack<>();
+		boolean found = false;
+		boolean next_found = false;
+		Node now = st;
+		Node next = st;
+		Node nextt = st;
+		
+		while (found == false && st.visited == false) {
+			stk.push(now);
+			now.is_in = true;
+			next_found = false;
+			
+			for (int i = 0; i < now.edges.size(); i++) {
+				if (now.edges.get(i).getNodes().get(0) == now) {
+					nextt = now.edges.get(i).getNodes().get(1);	
+				}
+				else {
+					nextt = now.edges.get(i).getNodes().get(0);
+				}
+				
+				if (nextt.visited == false && nextt.is_in == false && next_found == false) {
+					next = nextt;
+					next_found = true;
+				}
+			}
+			
+			if (next_found == true) {
+				now = next;
+				if (now == ed) {
+					found = true;
+					stk.push(ed);
+				}
+			}
+			else {
+				now.visited = true;
+				stk.pop();
+				if (stk.empty() == false) {
+					now = stk.pop();
+				}
+				else {
+					break;
+				}
+			}
+		}
+		
+		Stack<Node> stk2 = new Stack<>();
+		Node n = st;
+		while (stk.empty() == false) {
+			n = stk.pop();
+			stk2.push(n);
+		}
+		
+		ArrayList<Node> path = new ArrayList<>();
+		while (stk2.empty() == false) {
+			n = stk2.pop();
+			path.add(n);
+		}
+		
+		return path;
+		
+	}
 
 }
