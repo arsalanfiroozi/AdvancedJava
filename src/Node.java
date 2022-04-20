@@ -2,11 +2,16 @@ import java.util.*;
 
 public class Node {
     int nodeID    = 0;
+	boolean visited = false;
+	boolean is_in = false;
+	
     ArrayList<Edge> edges  = new ArrayList<Edge>();
     
     public Node(){}
     public Node(int nodeID) {
         this.nodeID = nodeID;
+		this.visited = false;
+		this.is_in = false;
     }
     
 
