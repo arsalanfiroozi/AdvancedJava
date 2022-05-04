@@ -13,7 +13,27 @@ public class App {
         // System.out.println(Ins.getItem(2));
 
         // Test LinkedList_Q2
-        LinkedList_Q2 Ins2 = new LinkedList_Q2(new Double[] { 1.0, 2.0, 3.0 });
+        // LinkedList_Q2 Ins2 = new LinkedList_Q2(new Double[] { 1.0, 2.0, 3.0 });
+        // System.out.println(Ins2.getItem(1));
+        // Ins2.addItem(99.0, 1);
+        // System.out.println(Ins2.getItem(1));
+        // System.out.println(Ins2.getItem(2));
+        // Ins2.removeItem(2);
+        // System.out.println(Ins2.getItem(1));
+        // System.out.println(Ins2.getItem(2));
+
+        // Test GenericLinkedList_Q1
+        // Generic_LinkedList_Q1 Ins = new Generic_LinkedList_Q1<Double>(new Double[] { 1.0, 2.0, 3.0 });
+        // System.out.println(Ins.getItem(1));
+        // Ins.addItem(99.0, 1);
+        // System.out.println(Ins.getItem(1));
+        // System.out.println(Ins.getItem(2));
+        // Ins.removeItem(2);
+        // System.out.println(Ins.getItem(1));
+        // System.out.println(Ins.getItem(2));
+
+        // Test GenericLinkedList_Q2
+        Generic_LinkedList_Q2<Double> Ins2 = new Generic_LinkedList_Q2<Double>(new Double[] { 1.0, 2.0, 3.0 });
         System.out.println(Ins2.getItem(1));
         Ins2.addItem(99.0, 1);
         System.out.println(Ins2.getItem(1));
@@ -21,6 +41,7 @@ public class App {
         Ins2.removeItem(2);
         System.out.println(Ins2.getItem(1));
         System.out.println(Ins2.getItem(2));
+
 
     }
 }
