@@ -16,7 +16,7 @@ public class Q1 implements Runnable {
 
     public void run() {
         while(thread.isAlive()){
-            
+            // Nothing!
         }
         System.out.println("Hello from thread " + i);
     }
