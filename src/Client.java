@@ -44,23 +44,16 @@ public class Client implements Runnable {
 		// string to read message from input
 		String line = "";
 		// keep reading until "Over" is input
-		// while (!line.equals("Over")) {
-		// try {
-		// line = input.readLine();
-		// out.writeUTF(line);
-		// } catch (IOException i) {
-		// System.out.println(i);
-		// }
-		// }
 		try {
 			line = in.readUTF();
 			System.out.println(line);
 		} catch (IOException i) {
 			System.out.println(i);
 		}
-		while(line!="Password?"){
+		while (!line.equals("Password?")) {
+			String line2;
 			try {
-				String line2 = input.readLine();
+				line2 = input.readLine();
 				out.writeUTF(line2);
 			} catch (IOException i) {
 				System.out.println(i);
@@ -84,7 +77,37 @@ public class Client implements Runnable {
 		} catch (IOException i) {
 			System.out.println(i);
 		}
-
+		// Show users:
+		line = "Available Users:";
+		while (!line.equals("Over")) {
+			System.out.println(line);
+			try {
+				line = in.readUTF();
+			} catch (IOException i) {
+				System.out.println(i);
+			}
+		}
+		// Select
+		try {
+			line = in.readUTF();
+		} catch (IOException i) {
+			System.out.println(i);
+		}
+		while (!line.equals("Over")) {
+			System.out.println(line);
+			try {
+				String line2 = input.readLine();
+				out.writeUTF(line2);
+			} catch (IOException i) {
+				System.out.println(i);
+			}
+			try {
+				line = in.readUTF();
+			} catch (IOException i) {
+				System.out.println(i);
+			}
+		}
+		System.out.println("Session Created. You can talk:");
 		// close the connection
 		try {
 			input.close();

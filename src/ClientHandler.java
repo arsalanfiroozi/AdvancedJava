@@ -47,7 +47,24 @@ public class ClientHandler implements Runnable {
 			}
 			out.writeUTF("Registered");
 			UserPass.put(user, pass);
-
+			// Send All users:
+			for (String key : UserPass.keySet()) {
+				out.writeUTF(key);
+			}
+			out.writeUTF("Over");
+			// Select
+			String to = null;
+			do {
+				out.writeUTF("Who do you wanna chat with?");
+				try {
+					to = in.readUTF();
+					System.out.println(to);
+				} catch (IOException i) {
+					System.out.println(i);
+				}
+			} while (UserPass.get(user) != null);
+			out.writeUTF("Over");
+			
 			while (!line.equals("Over")) {
 				try {
 					line = in.readUTF();
