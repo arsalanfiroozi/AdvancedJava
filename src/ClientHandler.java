@@ -62,7 +62,8 @@ public class ClientHandler implements Runnable {
 				} catch (IOException i) {
 					System.out.println(i);
 				}
-			} while (UserPass.get(user) != null);
+				System.out.println(UserPass.get(user));
+			} while (UserPass.get(to) == null);
 			out.writeUTF("Over");
 			
 			while (!line.equals("Over")) {

@@ -108,6 +108,7 @@ public class Client implements Runnable {
 			}
 		}
 		System.out.println("Session Created. You can talk:");
+		
 		// close the connection
 		try {
 			input.close();
