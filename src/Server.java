@@ -18,29 +18,26 @@ public class Server implements Runnable {
     }
 
     public void run() {
+        System.out.println("Server started");
         try {
             server = new ServerSocket(Port);
-            while (true) {
+            while (!server.isClosed()) {
                 Socket socket = null;
-                try {
-
-                    System.out.println("Server started");
-
-                    System.out.println("Waiting for a client ...");
-
-                    socket = server.accept();
-                    System.out.println("Client accepted");
-
-                    ClientHandler obj = new ClientHandler(socket);
-                    Thread thr = new Thread(obj);
-                    thr.start();
-
-                } catch (Exception e) {
-                    socket.close();
-                    e.printStackTrace();
-                }
+                socket = server.accept();
+                System.out.println("Client accepted");
+                ClientHandler obj = new ClientHandler(socket);
+                Thread thr = new Thread(obj);
+                thr.start();
             }
         } catch (Exception e) {
+            CloseServer();
+        }
+    }
+
+    public void CloseServer(){
+        try {
+            server.close();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

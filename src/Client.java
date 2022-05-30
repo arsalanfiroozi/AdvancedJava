@@ -1,121 +1,73 @@
 
 // A Java program for a Client
 import java.net.*;
+import java.util.Scanner;
 import java.io.*;
 
-public class Client implements Runnable {
+public class Client {
 	// initialize socket and input output streams
 	private Socket socket = null;
-	private DataInputStream input = null;
-	private DataOutputStream out = null;
-	private DataInputStream in = null;
+	private BufferedReader in = null;
+	private BufferedWriter out = null;
+
+	// Connection
 	String Address = null;
 	int Port = 0;
+
+	// User
+	String user;
 
 	// constructor to put ip address and port
 	public Client(String address, int port) {
 		Address = address;
 		Port = port;
-	}
-
-	public static void main(String args[]) {
-		Client client = new Client("127.0.0.1", 5000);
-	}
-
-	public void run() {
-		// establish a connection
 		try {
 			socket = new Socket(Address, Port);
+			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            out= new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 			System.out.println("Connected");
+		} catch (IOException e) {
+			errorFunc();
+		}
+	}
 
-			// takes input from terminal
-			input = new DataInputStream(System.in);
+	public void sendMessage() {
+		try {
+			Scanner scanner = new Scanner(System.in);
+			while (socket.isConnected()) {
+				String m = scanner.nextLine();
+				out.write(m);
+				out.newLine();
+				out.flush();
+			}
+		} catch (IOException e) {
+			errorFunc();
+		}
+	}
 
-			// sends output to the socket
-			out = new DataOutputStream(socket.getOutputStream());
-			in = new DataInputStream(
-					new BufferedInputStream(socket.getInputStream()));
-		} catch (UnknownHostException u) {
-			System.out.println(u);
-		} catch (IOException i) {
-			System.out.println(i);
-		}
+	public void listenForMessage() {
+		new Thread(new Runnable() {
+			public void run() {
+				String m;
+				while (socket.isConnected()) {
+					try {
+						m = in.readLine();
+						System.out.println(m);
+					} catch (IOException e) {
+						errorFunc();
+					}
+				}
+			}
+		}).start();
+	}
 
-		// string to read message from input
-		String line = "";
-		// keep reading until "Over" is input
+	public void errorFunc() {
 		try {
-			line = in.readUTF();
-			System.out.println(line);
-		} catch (IOException i) {
-			System.out.println(i);
-		}
-		while (!line.equals("Password?")) {
-			String line2;
-			try {
-				line2 = input.readLine();
-				out.writeUTF(line2);
-			} catch (IOException i) {
-				System.out.println(i);
-			}
-			try {
-				line = in.readUTF();
-				System.out.println(line);
-			} catch (IOException i) {
-				System.out.println(i);
-			}
-		}
-		try {
-			String line2 = input.readLine();
-			out.writeUTF(line2);
-		} catch (IOException i) {
-			System.out.println(i);
-		}
-		try {
-			line = in.readUTF();
-			System.out.println(line);
-		} catch (IOException i) {
-			System.out.println(i);
-		}
-		// Show users:
-		line = "Available Users:";
-		while (!line.equals("Over")) {
-			System.out.println(line);
-			try {
-				line = in.readUTF();
-			} catch (IOException i) {
-				System.out.println(i);
-			}
-		}
-		// Select
-		try {
-			line = in.readUTF();
-		} catch (IOException i) {
-			System.out.println(i);
-		}
-		while (!line.equals("Over")) {
-			System.out.println(line);
-			try {
-				String line2 = input.readLine();
-				out.writeUTF(line2);
-			} catch (IOException i) {
-				System.out.println(i);
-			}
-			try {
-				line = in.readUTF();
-			} catch (IOException i) {
-				System.out.println(i);
-			}
-		}
-		System.out.println("Session Created. You can talk:");
-		
-		// close the connection
-		try {
-			input.close();
+			in.close();
 			out.close();
 			socket.close();
-		} catch (IOException i) {
-			System.out.println(i);
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 }
