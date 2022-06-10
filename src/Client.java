@@ -3,6 +3,7 @@
 import java.net.*;
 import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
+import java.util.Base64;
 import java.io.*;
 import java.security.KeyFactory;
 import java.security.KeyPair;
@@ -11,7 +12,6 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.spec.EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
-import java.util.Base64;
 
 import javax.crypto.Cipher;
 
@@ -57,11 +57,13 @@ public class Client {
 							// out.newLine();
 							// out.flush();
 					switch (encryptionType) {
-						//no encryption 
+						//plain text
 						case 0:
 							out.write(mscan);
 							out.newLine();
 							out.flush();
+
+							//encryption type change 
 							if(mscan.equals("Enable Asymmetric Encryption")) {
 								waitnigForPublicKey = true;
 								enableAsymmetricEncryption();
@@ -76,19 +78,54 @@ public class Client {
 								// decodePublicKeyReceived(mscan);
 								
 								encryptionType = 2;
-							}	
+								
+							} else if (mscan.equals("Enable Base64 Coding")) {
+								encryptionType = 1;
+							}
 					 		break;
 						
-						//base 64 encryption
+						//base 64 coding
 						case 1:	
-							
+							byte[] mscanBytes = mscan.getBytes(StandardCharsets.UTF_8);
+							String mscanEncoded = Base64.getEncoder().encodeToString(mscanBytes);
+							out.write(mscanEncoded);
+							out.newLine();
+							out.flush();
+
+							//encryption type change 
+							if(mscan.equals("Enable Asymmetric Encryption")) {
+								waitnigForPublicKey = true;
+								enableAsymmetricEncryption();
+
+								//sending public key
+								out.write(encodePublicKeySend());
+								out.newLine();
+								out.flush();
+								
+								// //recieving other side's public key
+								// mscan = in.readLine();
+								// decodePublicKeyReceived(mscan);
+								
+								encryptionType = 2;
+								
+							} else if (mscan.equals("Enable Plain Text")) {
+								encryptionType = 0;
+							}
 					 		break; 
 
 						//asymmetric encryption
 						case 2:
-							out.write(AsymmetricEncrypt(mscan));
+							String mscanDecrypted = AsymmetricEncrypt(mscan);
+							out.write(mscanDecrypted);
 							out.newLine();
-							out.flush();						
+							out.flush();
+							
+							//encryption type change 
+							if (mscanDecrypted.equals("Enable Base64 Coding")) {
+								encryptionType = 1;
+							} else if (mscan.equals("Enable Plain Text")) {
+								encryptionType = 0;
+							}
 					 		break;
 
 						default:
@@ -119,9 +156,11 @@ public class Client {
 							}
 						} else {
 							switch (encryptionType) {
-								//no encryption 
+								//plain text 
 								case 0:
 									System.out.println(m);
+
+									//encryption type change 
 									if(m.equals("Enable Asymmetric Encryption")) {
 										m = in.readLine();
 										enableAsymmetricEncryption();
@@ -133,18 +172,45 @@ public class Client {
 										out.flush();
 
 										encryptionType = 2;			
+									} else if (m.equals("Enable Base64 Coding")) {
+										encryptionType = 1;
 									}
 									break;
 								
-								//base 64 encryption
+								//base 64 coding
 								case 1:	
+									byte[] mDecoded = Base64.getDecoder().decode(m);
+									String mDecodedString = new String(mDecoded);
+									System.out.println(mDecodedString);						
 
+									//encryption type change 
+									if(mDecodedString.equals("Enable Asymmetric Encryption")) {
+										m = in.readLine();
+										enableAsymmetricEncryption();
+										decodePublicKeyReceived(m);
+
+										//sending public key
+										out.write(encodePublicKeySend());
+										out.newLine();
+										out.flush();
+
+										encryptionType = 2;			
+									} else if (mDecodedString.equals("Enable Plain Text")) {
+										encryptionType = 0;
+									}
 									break; 
 								
 								//asymmetric encryption
 								case 2:
 									m = AsymmetricDecrypt(m);
-									System.out.println(m);						
+									System.out.println(m);	
+									
+									//encryption type change 
+									if (m.equals("Enable Base64 Coding")) {
+										encryptionType = 1;
+									} else if (m.equals("Enable Plain Text")) {
+										encryptionType = 0;
+									}
 									break;
 								
 								default:
@@ -187,7 +253,7 @@ public class Client {
 		Cipher encryptCipher  = Cipher.getInstance("RSA");
 		encryptCipher.init(Cipher.ENCRYPT_MODE, publicKeyReceived);
 		byte[] messageBytes = message.getBytes(StandardCharsets.UTF_8);
-		byte[] messageBytesEncrypted = encryptCipher .doFinal(messageBytes);
+		byte[] messageBytesEncrypted = encryptCipher.doFinal(messageBytes);
 		String messageEncoded = Base64.getEncoder().encodeToString(messageBytesEncrypted);
 
 		return messageEncoded;

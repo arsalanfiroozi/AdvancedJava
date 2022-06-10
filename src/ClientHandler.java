@@ -1,9 +1,11 @@
 
 // A Java program for a Server
 import java.net.*;
+import java.util.Base64;
 import java.util.HashMap;
-import java.io.*;
+import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
+import java.io.*;
 
 public class ClientHandler implements Runnable {
 	public Socket socket = null;
@@ -15,6 +17,8 @@ public class ClientHandler implements Runnable {
 	// From, To
 	String user = null;
 	String to = null;
+
+	boolean isBase64 = false;
 
 	// constructor with port
 	public ClientHandler(Socket socket) {
@@ -132,6 +136,13 @@ public class ClientHandler implements Runnable {
 		if (who == 0){
 			c = UserSocket.get(to);
 			System.out.println("Message sent from " + user + " \t to " + to + ":" + text);
+			//if (isBase64) {
+				try {
+					System.out.println("decoded: " + new String(Base64.getDecoder().decode(text)));
+				} catch (Exception e) {
+
+				}
+			//}
 		} else {
 			c = this;
 			if (serverDestName==null) {
@@ -149,6 +160,23 @@ public class ClientHandler implements Runnable {
 		} catch (IOException e) {
 			errorFunc();
 		}
+		
+		/*
+		Scanner scanner = new Scanner(System.in); 
+		try {
+			byte[] mDecoded = Base64.getDecoder().decode(text);
+			isBase64 = true;
+			System.out.println("Base64 encoded message!");
+			//String ans = scanner.nextLine();
+			//if(ans.equals("y")) {
+				String mDecodedString = new String(mDecoded);
+				System.out.println("decoded: " + mDecodedString);
+			//}
+		} catch (Exception e) {
+
+		}
+		scanner.close();
+		*/
 	}
 
 	public void errorFunc() {
