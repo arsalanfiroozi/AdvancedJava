@@ -3,6 +3,7 @@
 import java.net.*;
 import java.util.HashMap;
 import java.io.*;
+import java.util.concurrent.TimeUnit;
 
 public class ClientHandler implements Runnable {
 	public Socket socket = null;
@@ -24,11 +25,14 @@ public class ClientHandler implements Runnable {
 			out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 
 			// Login
-			m = "User?";
+			m = "Username?";
 			sendMessage(2, m);
-			do {
+			m = in.readLine();
+			while (UserPass.get(m) != null) {
+				m = "This username is already taken. Please choose another.";
+				sendMessage(2, m);
 				m = in.readLine();
-			} while (UserPass.get(m) != null);
+			}
 			user = m;
 
 			m = "Pass?";
@@ -38,11 +42,15 @@ public class ClientHandler implements Runnable {
 			// Add user to hash map
 			UserPass.put(user, m);
 			UserSocket.put(user, this);
-			m = "Who do you wanna chat with? You can also wait for incoming users!";
-			sendMessage(1, m);
+			System.out.println("\nNew User: " + user + "\n");
+
+			//select recipient
+			m = "Who do you wanna chat with? You can also wait for incoming users! \n current users:";
+			sendMessage(2, m);
+			//print list of current users
 			for (String key : UserPass.keySet()) {
 				if (!key.equals(user))
-					sendMessage(1, key);
+					sendMessage(2, key);
 			}
 
 			// Make Connection
@@ -71,11 +79,17 @@ public class ClientHandler implements Runnable {
 	public void run() {
 		String m;
 		while (to.equals("wait")) {
-			// System.out.println("Waiting...");
-			System.out.println(to);
+			try {
+				TimeUnit.SECONDS.sleep(1);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			//System.out.print("W");
+			//m = to;
+			//sendMessage(1, m);
+			// System.out.println(to);
 			// Nothing
 		}
-
 		while (!socket.isClosed()) {
 			try {
 				m = in.readLine();
@@ -89,7 +103,7 @@ public class ClientHandler implements Runnable {
 
 	public Boolean askPermission(String text) {
 		String m;
-		m = "User " + text + " wants to chat with you. U Ok?";
+		m = "User " + text + " wants to chat with you. U Ok [y/n]?";
 		sendMessage(2, m);
 		try {
 			m = in.readLine();
@@ -97,24 +111,37 @@ public class ClientHandler implements Runnable {
 			errorFunc();
 		}
 		// System.out.println(m);
-		if (m.equals("1") || m.equals("y") || m.equals("yes")) {
+		if (m.equals("y")) {
 			to = text;
-			System.out.println("U accepted.");
+			System.out.println("User " + user + " accepted user " + text);
 			return true;
 		}
-		System.out.println("U rejected.");
+		System.out.println("User " + user + " rejected user " + text);
 		return false;
 	}
 
 	public void sendMessage(int who, String text) {
 		ClientHandler c;
-		if (who == 1)
-			c = UserSocket.get(user);
-		else if (who == 0)
+		// if (who == 1)
+		// 	c = UserSocket.get(user);
+		// else if (who == 0)
+		// 	c = UserSocket.get(to);
+		// else
+		// 	c = this;
+		String serverDestName=user;
+		if (who == 0){
 			c = UserSocket.get(to);
-		else
+			System.out.println("Message sent from " + user + " \t to " + to + ":" + text);
+		} else {
 			c = this;
-		System.out.println(to);
+			if (serverDestName==null) {
+			    serverDestName = " the new client without username.\n";
+			} else {
+			    serverDestName = user;
+			}
+			System.out.println("Message sent from Server to " + serverDestName + ":" + text);
+		}
+
 		try {
 			c.out.write(text);
 			c.out.newLine();

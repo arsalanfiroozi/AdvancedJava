@@ -24,7 +24,7 @@ public class Server implements Runnable {
             while (!server.isClosed()) {
                 Socket socket = null;
                 socket = server.accept();
-                System.out.println("Client accepted");
+                System.out.println("Client accepted: " + socket);
                 ClientHandler obj = new ClientHandler(socket);
                 Thread thr = new Thread(obj);
                 thr.start();

@@ -1,14 +1,31 @@
 
 // A Java program for a Client
 import java.net.*;
+import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 import java.io.*;
+import java.security.KeyFactory;
+import java.security.KeyPair;
+import java.security.KeyPairGenerator;
+import java.security.PrivateKey;
+import java.security.PublicKey;
+import java.security.spec.EncodedKeySpec;
+import java.security.spec.X509EncodedKeySpec;
+import java.util.Base64;
+
+import javax.crypto.Cipher;
 
 public class Client {
 	// initialize socket and input output streams
 	private Socket socket = null;
 	private BufferedReader in = null;
 	private BufferedWriter out = null;
+
+	private int encryptionType = 0;
+	private PrivateKey privateKeySend;
+	private PublicKey publicKeySend;
+	private PublicKey publicKeyReceived;
+	private boolean waitnigForPublicKey = false;
 
 	// Connection
 	String Address = null;
@@ -31,30 +48,114 @@ public class Client {
 		}
 	}
 
-	public void sendMessage() {
+	public void sendMessage() throws Exception {
 		try {
-			Scanner scanner = new Scanner(System.in);
-			while (socket.isConnected()) {
-				String m = scanner.nextLine();
-				out.write(m);
-				out.newLine();
-				out.flush();
+			try (Scanner scanner = new Scanner(System.in)) {
+				while (socket.isConnected()) {
+					String mscan = scanner.nextLine();
+							// out.write(m);
+							// out.newLine();
+							// out.flush();
+					switch (encryptionType) {
+						//no encryption 
+						case 0:
+							out.write(mscan);
+							out.newLine();
+							out.flush();
+							if(mscan.equals("Enable Asymmetric Encryption")) {
+								waitnigForPublicKey = true;
+								enableAsymmetricEncryption();
+
+								//sending public key
+								out.write(encodePublicKeySend());
+								out.newLine();
+								out.flush();
+								
+								// //recieving other side's public key
+								// mscan = in.readLine();
+								// decodePublicKeyReceived(mscan);
+								
+								encryptionType = 2;
+							}	
+					 		break;
+						
+						//base 64 encryption
+						case 1:	
+							
+					 		break; 
+
+						//asymmetric encryption
+						case 2:
+							out.write(AsymmetricEncrypt(mscan));
+							out.newLine();
+							out.flush();						
+					 		break;
+
+						default:
+							break;
+					}
+
+					
+				}
 			}
 		} catch (IOException e) {
 			errorFunc();
 		}
 	}
 
-	public void listenForMessage() {
+	public void listenForMessage() throws Exception {
 		new Thread(new Runnable() {
 			public void run() {
 				String m;
 				while (socket.isConnected()) {
 					try {
 						m = in.readLine();
-						System.out.println(m);
+						if(waitnigForPublicKey) {
+							try {
+								decodePublicKeyReceived(m);
+								waitnigForPublicKey = false;
+							} catch(Exception e) {
+
+							}
+						} else {
+							switch (encryptionType) {
+								//no encryption 
+								case 0:
+									System.out.println(m);
+									if(m.equals("Enable Asymmetric Encryption")) {
+										m = in.readLine();
+										enableAsymmetricEncryption();
+										decodePublicKeyReceived(m);
+
+										//sending public key
+										out.write(encodePublicKeySend());
+										out.newLine();
+										out.flush();
+
+										encryptionType = 2;			
+									}
+									break;
+								
+								//base 64 encryption
+								case 1:	
+
+									break; 
+								
+								//asymmetric encryption
+								case 2:
+									m = AsymmetricDecrypt(m);
+									System.out.println(m);						
+									break;
+								
+								default:
+									break;
+							}
+						}
+
 					} catch (IOException e) {
 						errorFunc();
+					} catch (Exception e) {
+						e.printStackTrace();
 					}
 				}
 			}
@@ -69,5 +170,52 @@ public class Client {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void enableAsymmetricEncryption() throws Exception{
+        KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
+        keyPairGenerator.initialize(2048);
+        KeyPair keyPair = keyPairGenerator.generateKeyPair();
+        privateKeySend = keyPair.getPrivate();
+        publicKeySend = keyPair.getPublic();
+		//System.out.println("your private key: " + privateKeySend);
+		//System.out.println("your public  key: " + publicKeySend);
+
+	}
+
+	public String AsymmetricEncrypt(String message) throws Exception {
+		Cipher encryptCipher  = Cipher.getInstance("RSA");
+		encryptCipher.init(Cipher.ENCRYPT_MODE, publicKeyReceived);
+		byte[] messageBytes = message.getBytes(StandardCharsets.UTF_8);
+		byte[] messageBytesEncrypted = encryptCipher .doFinal(messageBytes);
+		String messageEncoded = Base64.getEncoder().encodeToString(messageBytesEncrypted);
+
+		return messageEncoded;
+	}
+
+	public String AsymmetricDecrypt(String message) throws Exception {
+		Cipher decryptCipher  = Cipher.getInstance("RSA");
+        decryptCipher.init(Cipher.DECRYPT_MODE, privateKeySend);
+		byte[] decodedMessageBytes = Base64.getDecoder().decode(message);
+		byte[] decryptedMessageBytes = decryptCipher.doFinal(decodedMessageBytes);
+		String decryptedMessageString = new String(decryptedMessageBytes, StandardCharsets.UTF_8);
+		
+		return decryptedMessageString;
+	}
+
+	public String encodePublicKeySend() throws Exception {
+		byte[] publicKeyByte = publicKeySend.getEncoded();
+		String publicKeyEncoded = Base64.getEncoder().encodeToString(publicKeyByte);
+
+		return publicKeyEncoded;
+	}
+
+	public void decodePublicKeyReceived(String publicKeyEncoded) throws Exception {
+		KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+		byte[] publicKeyByte = Base64.getDecoder().decode(publicKeyEncoded);
+		EncodedKeySpec publicKeySpec = new X509EncodedKeySpec(publicKeyByte);
+        publicKeyReceived = keyFactory.generatePublic(publicKeySpec);
+		
+		//return publicKeyReceived;
 	}
 }
