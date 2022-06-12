@@ -62,26 +62,6 @@ public class Client {
 							out.write(mscan);
 							out.newLine();
 							out.flush();
-
-							//encryption type change 
-							if(mscan.equals("Enable Asymmetric Encryption")) {
-								waitnigForPublicKey = true;
-								enableAsymmetricEncryption();
-
-								//sending public key
-								out.write(encodePublicKeySend());
-								out.newLine();
-								out.flush();
-								
-								// //recieving other side's public key
-								// mscan = in.readLine();
-								// decodePublicKeyReceived(mscan);
-								
-								encryptionType = 2;
-								
-							} else if (mscan.equals("Enable Base64 Coding")) {
-								encryptionType = 1;
-							}
 					 		break;
 						
 						//base 64 coding
@@ -91,43 +71,47 @@ public class Client {
 							out.write(mscanEncoded);
 							out.newLine();
 							out.flush();
-
-							//encryption type change 
-							if(mscan.equals("Enable Asymmetric Encryption")) {
-								waitnigForPublicKey = true;
-								enableAsymmetricEncryption();
-
-								//sending public key
-								out.write(encodePublicKeySend());
-								out.newLine();
-								out.flush();
-								
-								// //recieving other side's public key
-								// mscan = in.readLine();
-								// decodePublicKeyReceived(mscan);
-								
-								encryptionType = 2;
-								
-							} else if (mscan.equals("Enable Plain Text")) {
-								encryptionType = 0;
-							}
 					 		break; 
 
 						//asymmetric encryption
 						case 2:
-							String mscanDecrypted = AsymmetricEncrypt(mscan);
-							out.write(mscanDecrypted);
-							out.newLine();
-							out.flush();
-							
-							//encryption type change 
-							if (mscanDecrypted.equals("Enable Base64 Coding")) {
-								encryptionType = 1;
-							} else if (mscan.equals("Enable Plain Text")) {
+							try{
+								String mscanEncrypted = AsymmetricEncrypt(mscan);
+								out.write(mscanEncrypted);
+								out.newLine();
+								out.flush();
+							} catch (Exception e) {
 								encryptionType = 0;
 							}
 					 		break;
 
+						default:
+							break;
+					}
+
+					//commands
+					switch (mscan) {
+						case "Enable Plain Text":
+							encryptionType = 0;
+							break;
+
+						case "Enable Base64 Coding":
+							encryptionType = 1;
+							break;
+
+						case "Enable Asymmetric Encryption":
+							waitnigForPublicKey = true;
+							enableAsymmetricEncryption();
+							//sending public key
+							out.write(encodePublicKeySend());
+							out.newLine();
+							out.flush();
+														
+							encryptionType = 2;
+							break;
+							
+
+					
 						default:
 							break;
 					}
@@ -147,6 +131,9 @@ public class Client {
 				while (socket.isConnected()) {
 					try {
 						m = in.readLine();
+						if(m==null){
+							m="sign out";
+						}
 						if(waitnigForPublicKey) {
 							try {
 								decodePublicKeyReceived(m);
@@ -159,60 +146,73 @@ public class Client {
 								//plain text 
 								case 0:
 									System.out.println(m);
-
-									//encryption type change 
-									if(m.equals("Enable Asymmetric Encryption")) {
-										m = in.readLine();
-										enableAsymmetricEncryption();
-										decodePublicKeyReceived(m);
-
-										//sending public key
-										out.write(encodePublicKeySend());
-										out.newLine();
-										out.flush();
-
-										encryptionType = 2;			
-									} else if (m.equals("Enable Base64 Coding")) {
-										encryptionType = 1;
-									}
 									break;
 								
 								//base 64 coding
 								case 1:	
-									byte[] mDecoded = Base64.getDecoder().decode(m);
-									String mDecodedString = new String(mDecoded);
-									System.out.println(mDecodedString);						
-
-									//encryption type change 
-									if(mDecodedString.equals("Enable Asymmetric Encryption")) {
-										m = in.readLine();
-										enableAsymmetricEncryption();
-										decodePublicKeyReceived(m);
-
-										//sending public key
-										out.write(encodePublicKeySend());
-										out.newLine();
-										out.flush();
-
-										encryptionType = 2;			
-									} else if (mDecodedString.equals("Enable Plain Text")) {
-										encryptionType = 0;
+									try{
+										byte[] mDecoded = Base64.getDecoder().decode(m);
+										m = new String(mDecoded);
+										System.out.println(m);						
+									} catch (Exception e) {
+										System.out.println(m);
 									}
 									break; 
 								
 								//asymmetric encryption
 								case 2:
-									m = AsymmetricDecrypt(m);
-									System.out.println(m);	
-									
-									//encryption type change 
-									if (m.equals("Enable Base64 Coding")) {
-										encryptionType = 1;
-									} else if (m.equals("Enable Plain Text")) {
+									try{
+										m = AsymmetricDecrypt(m);
+										System.out.println(m);	
+									} catch (Exception e) {
+										System.out.println(m);
 										encryptionType = 0;
 									}
 									break;
 								
+								default:
+									break;
+							}
+
+							// if(m==null){
+							// 	System.out.println("recipient disconnected or signed out.");
+							// 	m="sign out";
+							// 	out.write("sign out");
+							// 	out.newLine();
+							// 	out.flush();
+							// }
+							//commands
+							switch (m) {
+								case "Enable Plain Text":
+									encryptionType = 0;
+									break;
+							
+								case "Enable Base64 Coding":
+									encryptionType = 1;
+									break;
+								
+								case "Enable Asymmetric Encryption":
+									try{
+										m = in.readLine();
+										enableAsymmetricEncryption();
+										decodePublicKeyReceived(m);
+									} catch (Exception e) {
+										System.out.println(m);
+									}
+									//sending public key
+									out.write(encodePublicKeySend());
+									out.newLine();
+									out.flush();
+
+									encryptionType = 2;
+									break;
+
+								case "sign out": 
+									out.write("sign out");
+									out.newLine();
+									out.flush();
+									break;
+
 								default:
 									break;
 							}
@@ -229,13 +229,13 @@ public class Client {
 	}
 
 	public void errorFunc() {
-		try {
-			in.close();
-			out.close();
-			socket.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		// try {
+		// 	in.close();
+		// 	out.close();
+		// 	socket.close();
+		// } catch (IOException e) {
+		// 	e.printStackTrace();
+		// }
 	}
 
 	public void enableAsymmetricEncryption() throws Exception{
