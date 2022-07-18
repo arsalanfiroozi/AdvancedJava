@@ -13,7 +13,7 @@ This repository contains 7 homework of the course Advanced Programming Laborator
 
 Instructions are placed in the main branch.
 
-Contributours:
+Contributors:
 - Arsalan Firoozi
 - Seyed Mohammad Amin Hashemi
 - Sarvin Motamen 
