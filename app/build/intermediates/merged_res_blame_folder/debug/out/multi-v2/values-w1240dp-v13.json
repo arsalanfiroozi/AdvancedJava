@@ -4,7 +4,7 @@
             "outputFile": "com.chonneck.ui_chat.app-mergeDebugResources-30:/values-w1240dp-v13/values-w1240dp-v13.xml",
             "map": [
                 {
-                    "source": "D:\\HW\\Lab_AdvancedProgramming\\Project\\AdvancedJava\\app\\src\\main\\res\\values-w1240dp\\dimens.xml",
+                    "source": "C:\\Users\\Personal Account\\Desktop\\AdvancedJava-main\\app\\src\\main\\res\\values-w1240dp\\dimens.xml",
                     "from": {
                         "startLines": "1",
                         "startColumns": "4",

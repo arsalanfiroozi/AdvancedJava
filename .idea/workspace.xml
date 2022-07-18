@@ -1,42 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="AndroidLayouts">
-    <shared>
-      <config />
-    </shared>
-  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2a0fd7bf-6d14-4744-ad86-3a21b02fe220" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdvancedJava/Server" beforeDir="false" afterPath="$PROJECT_DIR$/AdvancedJava/Server" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdvancedJava/Server/bin/ClientHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/AdvancedJava/Server/bin/ClientHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdvancedJava/Server/src/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/AdvancedJava/Server/src/ClientHandler.java" afterDir="false" />
+    <list default="true" id="24dde72c-2d21-4863-baf9-ec60b3c084e0" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/Server/bin/Client$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/Server/bin/Client$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/bin/Client.class" beforeDir="false" afterPath="$PROJECT_DIR$/Server/bin/Client.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Server/bin/ClientHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/Server/bin/ClientHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/bin/Server.class" beforeDir="false" afterPath="$PROJECT_DIR$/Server/bin/Server.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/Client$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/Client$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/Client.class" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/Client.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/Client.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Server/src/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/ClientHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/chonneck/ui_chat/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/chonneck/ui_chat/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/chonneck/ui_chat/FirstFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/chonneck/ui_chat/FirstFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/chonneck/ui_chat/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/chonneck/ui_chat/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/chonneck/ui_chat/SecondFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/chonneck/ui_chat/SecondFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_launcher_background.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_launcher_background.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_first.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_first.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_second.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_second.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher_round.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher_round.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher_round.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/navigation/nav_graph.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/navigation/nav_graph.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/Server.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,43 +27,20 @@
     </projectState>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/Server" />
   </component>
-  <component name="GitSEFilterConfiguration">
-    <file-type-list>
-      <filtered-out-file-type name="LOCAL_BRANCH" />
-      <filtered-out-file-type name="REMOTE_BRANCH" />
-      <filtered-out-file-type name="TAG" />
-      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
-    </file-type-list>
-  </component>
-  <component name="ProjectId" id="2B3MOAaL9lAPlwI6LXlYmphJ11W" />
+  <component name="ProjectId" id="2C5XQZ3zS4GPg5YDkvIPDRKaqeH" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="DEBUGGABLE_DEVICE" value="samsung-sm_a325f-RZ8R81WQA6E" />
-    <property name="DEBUGGABLE_PROCESS" value="com.chonneck.javaadvancedproject" />
-    <property name="DEBUGGER_ID" value="Auto" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="SHOW_ALL_PROCESSES" value="true" />
     <property name="cidr.known.project.marker" value="true" />
-    <property name="ignore.virus.scanning.warn.message" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-  </component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\HW\Lab_AdvancedProgramming\Project\AdvancedJava\app\src\main\res\layout" />
-      <recent name="C:\UI_Chat\app\src\main\java\com\chonneck\ui_chat" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.chonneck.ui_chat" />
-    </key>
   </component>
   <component name="RunManager">
     <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
@@ -150,11 +104,11 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="2a0fd7bf-6d14-4744-ad86-3a21b02fe220" name="Changes" comment="" />
-      <created>1656130280806</created>
+      <changelist id="24dde72c-2d21-4863-baf9-ec60b3c084e0" name="Changes" comment="" />
+      <created>1658093403416</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1656130280806</updated>
+      <updated>1658093403416</updated>
     </task>
     <servers />
   </component>

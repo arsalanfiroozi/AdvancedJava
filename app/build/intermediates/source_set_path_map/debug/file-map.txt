@@ -25,11 +25,11 @@ com.chonneck.ui_chat.app-window-1.0.0-23 C:\Users\Personal Account\.gradle\cache
 com.chonneck.ui_chat.app-navigation-common-2.4.2-24 C:\Users\Personal Account\.gradle\caches\transforms-3\ea72454d9040669a5c3ecfef10026b3a\transformed\navigation-common-2.4.2\res
 com.chonneck.ui_chat.app-drawerlayout-1.1.1-25 C:\Users\Personal Account\.gradle\caches\transforms-3\edcdf00559453ac5f7364b461524ff25\transformed\drawerlayout-1.1.1\res
 com.chonneck.ui_chat.app-appcompat-1.4.2-26 C:\Users\Personal Account\.gradle\caches\transforms-3\f053ca72a4906620f9d7f529c412475e\transformed\appcompat-1.4.2\res
-com.chonneck.ui_chat.app-pngs-27 D:\HW\Lab_AdvancedProgramming\Project\AdvancedJava\app\build\generated\res\pngs\debug
-com.chonneck.ui_chat.app-resValues-28 D:\HW\Lab_AdvancedProgramming\Project\AdvancedJava\app\build\generated\res\resValues\debug
-com.chonneck.ui_chat.app-rs-29 D:\HW\Lab_AdvancedProgramming\Project\AdvancedJava\app\build\generated\res\rs\debug
-com.chonneck.ui_chat.app-packageDebugResources-30 D:\HW\Lab_AdvancedProgramming\Project\AdvancedJava\app\build\intermediates\incremental\debug\packageDebugResources\merged.dir
-com.chonneck.ui_chat.app-packageDebugResources-31 D:\HW\Lab_AdvancedProgramming\Project\AdvancedJava\app\build\intermediates\incremental\debug\packageDebugResources\stripped.dir
-com.chonneck.ui_chat.app-merged_res-32 D:\HW\Lab_AdvancedProgramming\Project\AdvancedJava\app\build\intermediates\merged_res\debug
-com.chonneck.ui_chat.app-debug-33 D:\HW\Lab_AdvancedProgramming\Project\AdvancedJava\app\src\debug\res
-com.chonneck.ui_chat.app-main-34 D:\HW\Lab_AdvancedProgramming\Project\AdvancedJava\app\src\main\res
+com.chonneck.ui_chat.app-pngs-27 C:\Users\Personal Account\Desktop\AdvancedJava-main\app\build\generated\res\pngs\debug
+com.chonneck.ui_chat.app-resValues-28 C:\Users\Personal Account\Desktop\AdvancedJava-main\app\build\generated\res\resValues\debug
+com.chonneck.ui_chat.app-rs-29 C:\Users\Personal Account\Desktop\AdvancedJava-main\app\build\generated\res\rs\debug
+com.chonneck.ui_chat.app-packageDebugResources-30 C:\Users\Personal Account\Desktop\AdvancedJava-main\app\build\intermediates\incremental\debug\packageDebugResources\merged.dir
+com.chonneck.ui_chat.app-packageDebugResources-31 C:\Users\Personal Account\Desktop\AdvancedJava-main\app\build\intermediates\incremental\debug\packageDebugResources\stripped.dir
+com.chonneck.ui_chat.app-merged_res-32 C:\Users\Personal Account\Desktop\AdvancedJava-main\app\build\intermediates\merged_res\debug
+com.chonneck.ui_chat.app-debug-33 C:\Users\Personal Account\Desktop\AdvancedJava-main\app\src\debug\res
+com.chonneck.ui_chat.app-main-34 C:\Users\Personal Account\Desktop\AdvancedJava-main\app\src\main\res
